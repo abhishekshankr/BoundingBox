@@ -6,7 +6,7 @@
   "capabilities": [],
   "enableProposedApi": false,
   "editorType": [
-    "figma", "figjam"
+    "figma"
   ],
   "ui": "ui.html"
 }
