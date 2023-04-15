@@ -1,0 +1,289 @@
+<html>
+
+<head>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Montserrat:wght@400;700&family=Barlow+Condensed&display=swap"
+    rel="stylesheet">
+
+  <style>
+    body {
+      font-family: 'Inter';
+      margin: 0;
+      padding: 16px;
+    }
+
+    button {
+      width: 100%;
+      padding: 8px 16px;
+      font-size: 14px;
+      cursor: pointer;
+      margin-top: 16px;
+    }
+
+    input {
+      font-family: 'Inter';
+      width: 100%;
+      padding: 6px 12px;
+      margin: 8px 0;
+      box-sizing: border-box;
+      border: none;
+      border-bottom: 1px solid #e1e1e1;
+      outline: none;
+      font-size: 14px;
+    }
+
+    input:focus {
+      border-bottom: 1px solid #4597F7;
+    }
+
+    label {
+      font-family: 'Inter';
+      font-size: 12px;
+      font-weight: 600;
+      display: block;
+      margin-top: 8px;
+    }
+
+    .color-picker-container {
+      display: flex;
+      align-items: center;
+    }
+
+    .color-square {
+      display: inline-block;
+      width: 28px;
+      height: 24px;
+      margin-right: 16px;
+      cursor: pointer;
+      border: 2px solid #fff;
+      outline: 1px solid #e7e7e7;
+      border-radius: 4px;
+    }
+
+    .corner-style-buttons {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .corner-style-button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 30%;
+      height: 54px;
+      cursor: pointer;
+      background-color: transparent;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      outline: none;
+      transition: border 0.1s;
+      transition: background-color 0.1s;
+    }
+
+    .corner-style-button:hover {
+      border: 1px solid #848484;
+    }
+
+    .corner-style-button.selected {
+      border: 2px solid #4597F7;
+      background: rgba(69, 151, 247, .1)
+    }
+
+    .corner-style-button svg {
+      width: 64px;
+      height: 48px;
+      fill: #CCCCCC;
+      transition: fill 0.1s;
+    }
+
+    .corner-style-button.selected svg {
+      fill: #4597F7;
+    }
+
+    .corner-style-button:hover svg {
+      fill: #777 !important;
+    }
+
+    .corner-style-button.selected:hover svg {
+      fill: #4597F7 !important;
+    }
+
+    #createBoundingBox {
+      font-family: 'Inter';
+      height: 48px;
+      font-size: 14px;
+      font-weight: 400;
+      background-color: #4597F7;
+      border: none;
+      border-radius: 8px;
+      color: #fff;
+      transition: background-color 0.3s;
+    }
+
+    #createBoundingBox:hover {
+      background-color: #3578d6;
+    }
+
+    .inputs-row {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .input-wrapper {
+      flex: 1;
+    }
+
+    /* You can adjust the margin value to control the space between the input fields */
+    .input-wrapper:not(:last-child) {
+      margin-right: 10px;
+    }
+  </style>
+</head>
+
+<body>
+  <label for="color">Color</label>
+  <div class="color-picker-container">
+    <div class="color-square" id="colorSquare"></div>
+    <input type="color" id="color" value="#4597F7" style="display:none" />
+    <input type="text" id="colorHex" value="#4597F7" />
+  </div>
+  <div class="inputs-row">
+    <div class="input-wrapper">
+      <label for="strokeWidth">Stroke Weight</label>
+      <input id="strokeWidth" type="number" min="0" step="0.1" value="1" />
+    </div>
+    <div class="input-wrapper">
+      <label for="dashPattern">Dashes (Stroke, Gap)</label>
+      <input id="dashPattern" type="text" placeholder="0,0" />
+    </div>
+  </div>
+
+  <label>Bounding Box Style</label>
+  <div class="corner-style-buttons">
+    <button class="corner-style-button selected" id="cornerStyleRectangle">
+      <svg width="64" height="40" viewBox="0 0 64 40" fill="#4597F7" xmlns="http://www.w3.org/2000/svg">
+        <path
+          d="M12.6136 34H4.09091L18.5227 4.90909H29.3182L34.0909 34H25.5682L22.7273 12.9205H22.5L12.6136 34ZM12.9545 22.5227H28.9773L27.9545 28.4318H11.9318L12.9545 22.5227ZM40.8291 34.3409C39.4465 34.3409 38.2581 34.1136 37.2638 33.6591C36.2789 33.1951 35.5592 32.4943 35.1047 31.5568C34.6596 30.6098 34.5602 29.4167 34.8064 27.9773C35.0053 26.7841 35.3793 25.7661 35.9286 24.9233C36.4778 24.0805 37.1596 23.3892 37.974 22.8494C38.7884 22.3097 39.7022 21.8977 40.7155 21.6136C41.7382 21.3201 42.8178 21.1307 43.9541 21.0455C45.1852 20.9508 46.1842 20.8324 46.9513 20.6903C47.7183 20.5483 48.2912 20.3542 48.67 20.108C49.0488 19.8617 49.2761 19.5303 49.3518 19.1136V19.0568C49.4371 18.4886 49.2856 18.053 48.8973 17.75C48.5185 17.447 47.9882 17.2955 47.3064 17.2955C46.5678 17.2955 45.9286 17.4564 45.3888 17.7784C44.8585 18.1004 44.4939 18.6023 44.295 19.2841H37.0791C37.3821 17.9583 38.0024 16.7367 38.9399 15.6193C39.8869 14.4924 41.1416 13.5928 42.7041 12.9205C44.2761 12.2386 46.1511 11.8977 48.3291 11.8977C49.8821 11.8977 51.2458 12.0824 52.42 12.4517C53.5943 12.8116 54.5649 13.3182 55.332 13.9716C56.1085 14.6155 56.653 15.3731 56.9655 16.2443C57.2875 17.1061 57.3632 18.0436 57.1928 19.0568L54.6928 34H47.3632L47.8746 30.9318H47.7041C47.1359 31.7462 46.4967 32.4044 45.7865 32.9062C45.0857 33.4081 44.3187 33.7727 43.4854 34C42.6615 34.2273 41.7761 34.3409 40.8291 34.3409ZM44.2382 29.3977C44.8253 29.3977 45.403 29.2746 45.9712 29.0284C46.5393 28.7822 47.027 28.4271 47.4342 27.9631C47.8414 27.4991 48.1018 26.9356 48.2155 26.2727L48.4996 24.4545C48.2912 24.5398 48.0592 24.6203 47.8036 24.696C47.5573 24.7623 47.2969 24.8286 47.0223 24.8949C46.7571 24.9612 46.4731 25.0227 46.17 25.0795C45.8765 25.1364 45.5734 25.1932 45.2609 25.25C44.6359 25.3447 44.1104 25.5009 43.6842 25.7188C43.2581 25.9271 42.9267 26.1875 42.6899 26.5C42.4532 26.803 42.3064 27.1439 42.2496 27.5227C42.1643 28.1193 42.3017 28.5833 42.6615 28.9148C43.0308 29.2367 43.5564 29.3977 44.2382 29.3977Z"
+          fill="black" />
+        <path fill-rule="evenodd" clip-rule="evenodd"
+          d="M2 2V8H4V31.4318H2V37.4318H8V35.4318H55.3575V37.4318H61.3575V31.4318H59.3575V8H61.3575V2H55.3575V4H8V2H2ZM6 4H4V6H6V4ZM57.3575 31.4318V8H55.3575V6H8V8H6V31.4318H8V33.4318H55.3575V31.4318H57.3575ZM57.3575 4H59.3575V6H57.3575V4ZM6 33.4318H4V35.4318H6V33.4318ZM57.3575 33.4318H59.3575V35.4318H57.3575V33.4318Z" />
+      </svg>
+    </button>
+
+    <button class="corner-style-button" id="cornerStyleRectangleFill">
+      <svg width="64" height="40" viewBox="0 0 64 40" fill="#4597F7" xmlns="http://www.w3.org/2000/svg">
+        <path
+          d="M12.6136 34H4.09091L18.5227 4.90909H29.3182L34.0909 34H25.5682L22.7273 12.9205H22.5L12.6136 34ZM12.9545 22.5227H28.9773L27.9545 28.4318H11.9318L12.9545 22.5227ZM40.8291 34.3409C39.4465 34.3409 38.2581 34.1136 37.2638 33.6591C36.2789 33.1951 35.5592 32.4943 35.1047 31.5568C34.6596 30.6098 34.5602 29.4167 34.8064 27.9773C35.0053 26.7841 35.3793 25.7661 35.9286 24.9233C36.4778 24.0805 37.1596 23.3892 37.974 22.8494C38.7884 22.3097 39.7022 21.8977 40.7155 21.6136C41.7382 21.3201 42.8178 21.1307 43.9541 21.0455C45.1852 20.9508 46.1842 20.8324 46.9513 20.6903C47.7183 20.5483 48.2912 20.3542 48.67 20.108C49.0488 19.8617 49.2761 19.5303 49.3518 19.1136V19.0568C49.4371 18.4886 49.2856 18.053 48.8973 17.75C48.5185 17.447 47.9882 17.2955 47.3064 17.2955C46.5678 17.2955 45.9286 17.4564 45.3888 17.7784C44.8585 18.1004 44.4939 18.6023 44.295 19.2841H37.0791C37.3821 17.9583 38.0024 16.7367 38.9399 15.6193C39.8869 14.4924 41.1416 13.5928 42.7041 12.9205C44.2761 12.2386 46.1511 11.8977 48.3291 11.8977C49.8821 11.8977 51.2458 12.0824 52.42 12.4517C53.5943 12.8116 54.5649 13.3182 55.332 13.9716C56.1085 14.6155 56.653 15.3731 56.9655 16.2443C57.2875 17.1061 57.3632 18.0436 57.1928 19.0568L54.6928 34H47.3632L47.8746 30.9318H47.7041C47.1359 31.7462 46.4967 32.4044 45.7865 32.9062C45.0857 33.4081 44.3187 33.7727 43.4854 34C42.6615 34.2273 41.7761 34.3409 40.8291 34.3409ZM44.2382 29.3977C44.8253 29.3977 45.403 29.2746 45.9712 29.0284C46.5393 28.7822 47.027 28.4271 47.4342 27.9631C47.8414 27.4991 48.1018 26.9356 48.2155 26.2727L48.4996 24.4545C48.2912 24.5398 48.0592 24.6203 47.8036 24.696C47.5573 24.7623 47.2969 24.8286 47.0223 24.8949C46.7571 24.9612 46.4731 25.0227 46.17 25.0795C45.8765 25.1364 45.5734 25.1932 45.2609 25.25C44.6359 25.3447 44.1104 25.5009 43.6842 25.7188C43.2581 25.9271 42.9267 26.1875 42.6899 26.5C42.4532 26.803 42.3064 27.1439 42.2496 27.5227C42.1643 28.1193 42.3017 28.5833 42.6615 28.9148C43.0308 29.2367 43.5564 29.3977 44.2382 29.3977Z"
+          fill="black" />
+        <path fill-rule="evenodd" clip-rule="evenodd"
+          d="M2 2V8H4V31.4318H2V37.4318H8V35.4318H55.3575V37.4318H61.3575V31.4318H59.3575V8H61.3575V2H55.3575V4H8V2H2ZM57.3575 31.4318V8H55.3575V6H8V8H6V31.4318H8V33.4318H55.3575V31.4318H57.3575Z" />
+      </svg>
+    </button>
+
+    <button class="corner-style-button" id="cornerStyleNone">
+      <svg width="64" height="40" viewBox="0 0 64 40" fill="#4597F7" xmlns="http://www.w3.org/2000/svg">
+        <path
+          d="M12.6136 34H4.09091L18.5227 4.90909H29.3182L34.0909 34H25.5682L22.7273 12.9205H22.5L12.6136 34ZM12.9545 22.5227H28.9773L27.9545 28.4318H11.9318L12.9545 22.5227ZM40.8291 34.3409C39.4465 34.3409 38.2581 34.1136 37.2638 33.6591C36.2789 33.1951 35.5592 32.4943 35.1047 31.5568C34.6596 30.6098 34.5602 29.4167 34.8064 27.9773C35.0053 26.7841 35.3793 25.7661 35.9286 24.9233C36.4778 24.0805 37.1596 23.3892 37.974 22.8494C38.7884 22.3097 39.7022 21.8977 40.7155 21.6136C41.7382 21.3201 42.8178 21.1307 43.9541 21.0455C45.1852 20.9508 46.1842 20.8324 46.9513 20.6903C47.7183 20.5483 48.2912 20.3542 48.67 20.108C49.0488 19.8617 49.2761 19.5303 49.3518 19.1136V19.0568C49.4371 18.4886 49.2856 18.053 48.8973 17.75C48.5185 17.447 47.9882 17.2955 47.3064 17.2955C46.5678 17.2955 45.9286 17.4564 45.3888 17.7784C44.8585 18.1004 44.4939 18.6023 44.295 19.2841H37.0791C37.3821 17.9583 38.0024 16.7367 38.9399 15.6193C39.8869 14.4924 41.1416 13.5928 42.7041 12.9205C44.2761 12.2386 46.1511 11.8977 48.3291 11.8977C49.8821 11.8977 51.2458 12.0824 52.42 12.4517C53.5943 12.8116 54.5649 13.3182 55.332 13.9716C56.1085 14.6155 56.653 15.3731 56.9655 16.2443C57.2875 17.1061 57.3632 18.0436 57.1928 19.0568L54.6928 34H47.3632L47.8746 30.9318H47.7041C47.1359 31.7462 46.4967 32.4044 45.7865 32.9062C45.0857 33.4081 44.3187 33.7727 43.4854 34C42.6615 34.2273 41.7761 34.3409 40.8291 34.3409ZM44.2382 29.3977C44.8253 29.3977 45.403 29.2746 45.9712 29.0284C46.5393 28.7822 47.027 28.4271 47.4342 27.9631C47.8414 27.4991 48.1018 26.9356 48.2155 26.2727L48.4996 24.4545C48.2912 24.5398 48.0592 24.6203 47.8036 24.696C47.5573 24.7623 47.2969 24.8286 47.0223 24.8949C46.7571 24.9612 46.4731 25.0227 46.17 25.0795C45.8765 25.1364 45.5734 25.1932 45.2609 25.25C44.6359 25.3447 44.1104 25.5009 43.6842 25.7188C43.2581 25.9271 42.9267 26.1875 42.6899 26.5C42.4532 26.803 42.3064 27.1439 42.2496 27.5227C42.1643 28.1193 42.3017 28.5833 42.6615 28.9148C43.0308 29.2367 43.5564 29.3977 44.2382 29.3977Z"
+          fill="black" />
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M4 4H59.3575V35.4318H4V4ZM6 6V33.4318H57.3575V6H6Z" />
+      </svg>
+    </button>
+
+  </div>
+
+  <button id="createBoundingBox">Create Bounding Box</button>
+  <script>
+    const colorSquare = document.getElementById('colorSquare');
+    const colorInput = document.getElementById('color');
+    const colorHex = document.getElementById('colorHex');
+
+    colorSquare.style.backgroundColor = colorHex.value;
+
+    colorHex.addEventListener('input', () => {
+      if (isValidHex(colorHex.value)) {
+        colorSquare.style.backgroundColor = colorHex.value;
+      }
+    });
+
+    colorSquare.onclick = () => {
+      colorInput.click();
+    };
+
+    colorInput.addEventListener('change', () => {
+      colorSquare.style.backgroundColor = colorInput.value;
+      colorHex.value = colorInput.value;
+    });
+
+    const cornerStyleRectangle = document.getElementById('cornerStyleRectangle');
+    const cornerStyleNone = document.getElementById('cornerStyleNone');
+    const cornerStyleRectangleFill = document.getElementById('cornerStyleRectangleFill');
+
+    cornerStyleRectangle.onclick = () => {
+      cornerStyleRectangle.classList.add('selected');
+      cornerStyleNone.classList.remove('selected');
+      cornerStyleRectangleFill.classList.remove('selected');
+
+      cornerStyleRectangle.querySelector('svg').style.fill = '#4597F7';
+      cornerStyleNone.querySelector('svg').style.fill = '#CCCCCC';
+      cornerStyleRectangleFill.querySelector('svg').style.fill = '#CCCCCC';
+    };
+
+    cornerStyleRectangleFill.onclick = () => {
+      cornerStyleRectangleFill.classList.add('selected');
+      cornerStyleRectangle.classList.remove('selected');
+      cornerStyleNone.classList.remove('selected');
+
+      cornerStyleRectangleFill.querySelector('svg').style.fill = '#4597F7';
+      cornerStyleRectangle.querySelector('svg').style.fill = '#CCCCCC';
+      cornerStyleNone.querySelector('svg').style.fill = '#CCCCCC';
+    };
+
+    cornerStyleNone.onclick = () => {
+      cornerStyleNone.classList.add('selected');
+      cornerStyleRectangle.classList.remove('selected');
+      cornerStyleRectangleFill.classList.remove('selected');
+
+      cornerStyleNone.querySelector('svg').style.fill = '#4597F7';
+      cornerStyleRectangle.querySelector('svg').style.fill = '#CCCCCC';
+      cornerStyleRectangleFill.querySelector('svg').style.fill = '#CCCCCC';
+    };
+
+
+    document.getElementById('createBoundingBox').onclick = () => {
+      const strokeWidthInput = parseInt(document.getElementById('strokeWidth').value, 10);
+      const dashPatternInput = document.getElementById('dashPattern').value.split(',').map(Number);
+      const addCornerRectangles = cornerStyleRectangle.classList.contains('selected');
+      const addCornerRectanglesFill = cornerStyleRectangleFill.classList.contains('selected');
+      const color = hexToRgb(colorHex.value);
+
+      if (color && !isNaN(strokeWidthInput)) {
+        parent.postMessage({
+          pluginMessage: {
+            type: 'create-bounding-box',
+            color,
+            strokeWidth: strokeWidthInput,
+            dashPattern: dashPatternInput,
+            addCornerRectangles,
+            addCornerRectanglesFill,
+          }
+        }, '*');
+      }
+    };
+
+    function hexToRgb(hex) {
+      const match = hex.match(/^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i);
+      if (!match) return null;
+      return {
+        r: parseInt(match[1], 16) / 255,
+        g: parseInt(match[2], 16) / 255,
+        b: parseInt(match[3], 16) / 255
+      };
+    }
+
+    function isValidHex(hex) {
+      return /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.test(hex);
+    }
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,12 @@
+{
+  "name": "Bounding Box",
+  "id": "1228218239404632107",
+  "api": "1.0.0",
+  "main": "code.js",
+  "capabilities": [],
+  "enableProposedApi": false,
+  "editorType": [
+    "figma", "figjam"
+  ],
+  "ui": "ui.html"
+}
